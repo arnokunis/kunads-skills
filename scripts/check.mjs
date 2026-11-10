@@ -44,7 +44,7 @@ for (const name of folders) {
   if (!listed.has(name)) errors.push(`${file}: not in index.json`);
   if (copy && !copy[name]) errors.push(`${file}: not in catalog-copy.json`);
   if (!text.trimEnd().endsWith(FOOTER)) errors.push(`${file}: footer missing`);
-  if (text.includes("—")) errors.push(`${file}: contains an em dash`);
+  if (text.includes("\u2014")) errors.push(`${file}: contains an em dash`);
   for (const h of ["## Needs", "## Steps", "## Rules", "## Output format", "## Verification checklist"])
     if (!text.includes(h)) errors.push(`${file}: no "${h}" section`);
 
