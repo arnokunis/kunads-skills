@@ -1,0 +1,22 @@
+{
+  "weekly-profit-review": {
+    "title": "Weekly profit review",
+    "summary": "Goes through every account for the last 7 days: what the ads really earned against what Google and Meta claim, what moved since last week, and the three things to do first.",
+    "themes": ["Profit", "Agency"]
+  },
+  "money-losing-campaigns": {
+    "title": "Money-losing campaigns",
+    "summary": "Finds the campaigns that spend more than the profit they bring in, says how much each one lost, and what to do about it.",
+    "themes": ["Profit", "Budget"]
+  },
+  "client-report-draft": {
+    "title": "Client report draft",
+    "summary": "Writes the monthly email for one client in plain words, using only numbers Kunads returned. You read it and send it.",
+    "themes": ["Reporting", "Agency"]
+  },
+  "creative-winners": {
+    "title": "Creative winners",
+    "summary": "Shows which Meta ads and angles actually make money once the product cost is paid, and suggests what to make next.",
+    "themes": ["Creative"]
+  }
+}

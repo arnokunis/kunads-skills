@@ -1,0 +1,25 @@
+{
+  "server": "kunads",
+  "endpoint": "https://app.kunads.ai/api/mcp",
+  "read_only": true,
+  "common_inputs": {
+    "account": "The account's id or name, as list_accounts shows it. Required by every tool except list_accounts.",
+    "from": "Start date YYYY-MM-DD. Only used when `to` is also given; otherwise the last 30 days.",
+    "to": "End date YYYY-MM-DD. Only used when `from` is also given; otherwise yesterday."
+  },
+  "tools": {
+    "list_accounts": { "inputs": [], "summary": "Every ad account in the workspace, with its id and kind. Start here." },
+    "account_summary": { "inputs": ["account", "from", "to"], "summary": "Spend, conversions, platform-claimed revenue, what the shop recorded, revenue the shop credits to ads, and unit economics (margin, breakeven, kept per order)." },
+    "campaigns": { "inputs": ["account", "from", "to", "platform"], "summary": "Every campaign on Google and Meta with spend, conversions, revenue, ROAS, POAS and, for Google search, impression share and share lost to rank. platform: all | google_ads | meta." },
+    "creatives": { "inputs": ["account", "from", "to", "limit"], "summary": "Meta ads with spend, revenue, frequency, hook and hold rate, and a verdict (stop, fading, scale, iterate, keep, early), plus ad sets with conversions per week. Meta only." },
+    "monthly_profit": { "inputs": ["account", "from", "to", "months"], "summary": "Net profit before tax by month: revenue, gross profit, ad spend, fixed costs. Null ad spend means no ad data for that month." },
+    "proposals": { "inputs": ["account", "from", "to"], "summary": "What the rule engine proposed, its state (waiting, approved, declined) and the rule behind each." },
+    "track_record": { "inputs": ["account", "from", "to"], "summary": "Applied changes measured seven days later: forecast against outcome, tallied by rule." },
+    "reports": { "inputs": ["account", "from", "to"], "summary": "Saved reports: blocks, period, schedule, recipients, client link, last sent." },
+    "creative_evidence": { "inputs": ["account", "from", "to", "days"], "summary": "Winning ads and the words they used, ads Meta stopped funding, the business, products that sold, measured margin, typical frequency, and what is not measured." },
+    "budget_plan": { "inputs": ["account", "from", "to", "month"], "summary": "Monthly budget and pacing (spent, 7-day daily rate, projected month end, daily amount to land on budget), each campaign's 14-day profit per euro, budget-capped campaigns and proposed moves." },
+    "creative_lab": { "inputs": ["account", "from", "to"], "summary": "Creative lab concepts with tags, state and verdict (kill, keep, graduate, iterate), per-hook numbers, and the ledger of what each angle, desire, awareness stage and buyer has won or lost." },
+    "read_file": { "inputs": ["account", "file_id", "from"], "summary": "Read one of the client's uploaded files in full, in slices." },
+    "search_files": { "inputs": ["account", "from", "to", "query"], "summary": "Find words across the client's uploaded files." }
+  }
+}

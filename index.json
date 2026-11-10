@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "connector": "connector.json",
+  "skills": [
+    {
+      "name": "weekly-profit-review",
+      "version": "0.1.0",
+      "path": "skills/weekly-profit-review",
+      "summary": "Per account: last 7 days of real profit vs platform claims, what changed from last week, and the top 3 actions sized in money.",
+      "keywords": ["weekly", "profit", "poas", "roas", "agency", "review", "google ads", "meta ads"]
+    },
+    {
+      "name": "money-losing-campaigns",
+      "version": "0.1.0",
+      "path": "skills/money-losing-campaigns",
+      "summary": "Finds campaigns below breakeven on real profit, sizes each loss in money, and says whether to pause, cut, fix or wait.",
+      "keywords": ["breakeven", "poas", "wasted spend", "budget", "pause", "campaigns", "profit"]
+    },
+    {
+      "name": "client-report-draft",
+      "version": "0.1.0",
+      "path": "skills/client-report-draft",
+      "summary": "Drafts a short, plain-language monthly client email with every number taken from Kunads and a source list for the account manager.",
+      "keywords": ["client report", "monthly report", "email", "agency", "reporting"]
+    },
+    {
+      "name": "creative-winners",
+      "version": "0.1.0",
+      "path": "skills/creative-winners",
+      "summary": "Ranks Meta ads and angles on profit after ad cost and proposes a few next concepts built on what won.",
+      "keywords": ["creative", "meta ads", "angles", "hooks", "ad ideas", "creative testing"]
+    }
+  ]
+}
