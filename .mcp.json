@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "kunads": {
+      "type": "http",
+      "url": "https://app.kunads.ai/api/mcp"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "kunads",
+  "version": "0.2.0",
+  "description": "Kunads for Claude Code: read your Google and Meta ads against real orders and profit, and queue pauses and budget changes for approval in Kunads. Connects the Kunads MCP server and adds six skills.",
+  "author": { "name": "Kunads", "url": "https://kunads.ai" },
+  "homepage": "https://kunads.ai",
+  "license": "MIT",
+  "keywords": ["google ads", "meta ads", "profit", "poas", "agency", "mcp"]
+}

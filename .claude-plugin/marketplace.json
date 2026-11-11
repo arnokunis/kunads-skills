@@ -1,0 +1,16 @@
+{
+  "name": "kunads",
+  "description": "The Kunads plugin for Claude Code: profit-first Google and Meta ads skills plus the Kunads connector.",
+  "owner": {
+    "name": "Kunads",
+    "url": "https://kunads.ai"
+  },
+  "plugins": [
+    {
+      "name": "kunads",
+      "source": "./",
+      "description": "Read your Google and Meta ads against real orders and profit, and queue pauses and budget changes for approval in Kunads.",
+      "version": "0.2.0"
+    }
+  ]
+}

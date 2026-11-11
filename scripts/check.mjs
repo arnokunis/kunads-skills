@@ -22,6 +22,7 @@ if (appAt > 0) {
   const route = readFileSync(join(process.argv[appAt + 1], "src/app/api/mcp/route.ts"), "utf8");
   const m = route.match(/const READ_ONLY = \[([^\]]*)\]/);
   const live = new Set([...(m?.[1] ?? "").matchAll(/"([a-z_]+)"/g)].map((x) => x[1]).concat("list_accounts"));
+  if (route.includes("PROPOSE_TOOL")) live.add("propose_change");
   for (const t of live) if (!tools[t]) errors.push(`connector.json is missing ${t}, which the app serves`);
   for (const t of Object.keys(tools)) if (!live.has(t)) errors.push(`connector.json lists ${t}, which the app does not serve`);
   console.log(`app READ_ONLY + list_accounts: ${[...live].sort().join(", ")}`);
@@ -59,6 +60,10 @@ for (const name of folders) {
     for (const k of keys) if (!t.inputs.includes(k)) errors.push(`${file}: ${tool} has no input "${k}"`);
     if (tool !== "list_accounts" && !keys.includes("account")) errors.push(`${file}: ${tool}(...) does not pass account`);
   }
+  // a skill that queues changes must get the person's yes in the chat first
+  const writes = calls.filter(([, tool]) => tools[tool]?.writes);
+  if (writes.length && !text.includes("Wait for a yes")) errors.push(`${file}: calls ${writes[0][1]} without a "Wait for a yes" step`);
+  if (!writes.length && /propose_change/.test(text) === false && !/read-only/i.test(text)) errors.push(`${file}: reads only, but never says it is read-only`);
 }
 for (const s of index?.skills ?? []) if (!folders.includes(s.name)) errors.push(`index.json: ${s.name} has no folder`);
 

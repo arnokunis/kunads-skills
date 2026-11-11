@@ -6,10 +6,28 @@ against your shop's real orders and profit.
 Each skill is one page of steps your assistant follows. It calls the Kunads
 connector, which answers from figures Kunads has already measured: spend,
 what the platforms claim, what the shop actually recorded, margins,
-breakeven and the agents' own proposals. The connector is read-only.
-Nothing a skill does can change an ad account.
+breakeven and the agents' own proposals.
 
-## Hand this page to your agent
+The connector reads, and it can queue a change for approval: pause a
+campaign or set its daily budget. Nothing changes in Google Ads or Meta
+from your assistant. A person presses Approve in Kunads, and Kunads then
+applies it through its safety rails (brand protection, at most a 20%
+budget step, the month's cap, fresh data), with a receipt and an undo.
+The skills that queue changes ask you first in the chat.
+
+## Claude Code: install the plugin
+
+One install gives you the connector and every skill below:
+
+```
+/plugin marketplace add arnokunis/kunads-skills
+/plugin install kunads@kunads
+```
+
+Then run `/mcp`, pick kunads, and sign in with your Kunads login. Ask
+"Using Kunads, list my accounts" to check it works.
+
+## Any other assistant: hand this page to your agent
 
 1. **Connect Kunads to your assistant.** The server address is
    `https://app.kunads.ai/api/mcp`.
@@ -40,6 +58,8 @@ paid plans."
 | --- | --- | --- |
 | [Weekly profit review](skills/weekly-profit-review/SKILL.md) | Goes through every account for the last 7 days: what the ads really earned against what Google and Meta claim, what moved since last week, and the three things to do first. | Profit, Agency |
 | [Money-losing campaigns](skills/money-losing-campaigns/SKILL.md) | Finds the campaigns that spend more than the profit they bring in, says how much each one lost, and what to do about it. | Profit, Budget |
+| [Queue campaign fixes](skills/queue-campaign-fixes/SKILL.md) | Finds the campaigns that lose money, shows a pause or a budget cut for each, and after your yes puts them in Kunads' approval queue. Nothing changes until you approve. | Profit, Budget, Action |
+| [Budget pacing fix](skills/budget-pacing-fix/SKILL.md) | Says where this month's spend will land against the budget, and after your yes queues the daily-budget moves that land it. Nothing changes until you approve. | Budget, Agency, Action |
 | [Client report draft](skills/client-report-draft/SKILL.md) | Writes the monthly email for one client in plain words, using only numbers Kunads returned. You read it and send it. | Reporting, Agency |
 | [Creative winners](skills/creative-winners/SKILL.md) | Shows which Meta ads and angles actually make money once the product cost is paid, and suggests what to make next. | Creative |
 
@@ -51,8 +71,10 @@ paid plans."
   skill shows.
 - Each figure says which tool it came from.
 - When a tool returns nothing, the skill says so instead of filling the gap.
-- Read-only. To act on a finding, a person approves it in Kunads or makes
-  the change in Google Ads or Meta.
+- Nothing changes in an ad account from a skill. The read-only skills only
+  report. The two that act (Queue campaign fixes, Budget pacing fix) show
+  their plan, wait for your yes, and then put each change in Kunads'
+  approval queue. A person approves it there before anything is written.
 
 ## For contributors
 

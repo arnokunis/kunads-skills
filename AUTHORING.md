@@ -26,7 +26,12 @@ scripts/check.mjs        checks tool names, inputs, frontmatter and JSON
   names: `campaigns(account, from, to, platform: "all")`. The check script
   reads these, so a misspelled tool or input fails the check.
 - Only tools listed in `connector.json` may be called. Other Kunads tools
-  (writing ones, raw search terms, SQL) are not on the connector.
+  (direct writes, raw search terms, SQL) are not on the connector.
+- The one tool that writes is `propose_change`, and it only queues a pause
+  or a daily-budget change for a person to approve in Kunads. A skill that
+  calls it must show its plan and have a step titled "Wait for a yes"
+  before the first call (the check script enforces this), keep budget
+  steps at 20% or less, and say "queued for approval", never "changed".
 
 ## Connector facts worth repeating in a skill
 
@@ -46,7 +51,7 @@ scripts/check.mjs        checks tool names, inputs, frontmatter and JSON
 - Plain English, US spelling, short sentences. No em dashes. No hype.
 - Every skill keeps the four shared rules: never invent a number, name the
   source tool of each figure, say so when a tool returns nothing, and
-  remember the connector is read-only.
+  remember that nothing changes in an ad account from a skill.
 - End with this footer, exactly:
 
   Runs on Kunads (kunads.ai): AI agents that check your Google and Meta ads against real orders and profit. Free to try.
