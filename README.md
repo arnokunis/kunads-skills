@@ -11,8 +11,11 @@ breakeven and the agents' own proposals.
 The connector reads, and for people whose Kunads role allows it, it can
 prepare work and queue changes for approval: pause a campaign, set its
 daily budget or the month's budget, stop every autopilot, draft creative
-concepts and reports. It can also tell you what the agents found
-overnight. Nothing changes in Google Ads or Meta from your assistant.
+concepts and reports, propose launching a Meta test from the Creative
+lab (created paused, then turned on, each step approved in Kunads). It
+can also tell you what the agents found overnight, and a week after
+each change whether it made or lost money. Nothing changes in Google
+Ads or Meta from your assistant.
 Each queued change comes back as a card. In Claude and ChatGPT you answer
 it on the card itself when it lowers spend (a Meta pause or budget cut, a
 lower month's budget); anything else you approve in Kunads. Kunads then

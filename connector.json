@@ -1,7 +1,7 @@
 {
   "server": "kunads",
   "endpoint": "https://app.kunads.ai/api/mcp",
-  "writes": "Nothing writes to an ad account. Write tools (for people whose Kunads role allows it) prepare work in Kunads or queue a change for approval: propose_change (pause a campaign or set its daily budget), propose_month_budget, stop_autopilot, plus drafts (draft_concepts, edit_report), the brief (save_brief) and account rules (add_rule). Each queued change comes back as a card: a person answers it in the chat (Meta pauses and cuts, lowering the month's budget) or approves it in Kunads, which applies it through its safety rails. The card's own button (answer_card) is not callable by the model.",
+  "writes": "Nothing writes to an ad account. Write tools (for people whose Kunads role allows it) prepare work in Kunads or queue a change for approval: propose_change (pause a campaign or set its daily budget), propose_month_budget, propose_launch (a Meta test: created paused, then turned on, each approved in Kunads), stop_autopilot, plus drafts (draft_concepts, edit_report), the brief (save_brief) and account rules (add_rule). Each queued change comes back as a card: a person answers it in the chat (Meta pauses and cuts, lowering the month's budget) or approves it in Kunads, which applies it through its safety rails. The card's own button (answer_card) is not callable by the model.",
   "common_inputs": {
     "account": "The account's id or name, as list_accounts shows it. Required by every tool except list_accounts.",
     "from": "Start date YYYY-MM-DD. Only used when `to` is also given; otherwise the last 30 days.",
@@ -225,6 +225,15 @@
         "account"
       ],
       "summary": "Stop every autopilot on this account at once: each rule on 'Do it' and the goal autopilot go back to 'Ask me', so from now on every change waits for a person.",
+      "writes": true
+    },
+    "propose_launch": {
+      "inputs": [
+        "account",
+        "concept_id",
+        "why"
+      ],
+      "summary": "Propose launching one Meta test from the Creative lab. Kunads runs every launch check first; if all pass it becomes two approvals in Kunads, never in the chat: created paused (the approver reads every word), then turned on.",
       "writes": true
     }
   }
