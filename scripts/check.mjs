@@ -2,7 +2,7 @@
 // catalog, every tool call in a SKILL.md names a connector tool with real input names,
 // the footer is present, and no em dashes slipped in.
 // Optional: --app <path to the Kunads app> also compares connector.json with the
-// READ_ONLY list in src/app/api/mcp/route.ts.
+// tools src/app/api/mcp/route.ts and src/lib/mcp-agent-tools.ts serve.
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,9 +23,18 @@ if (appAt > 0) {
   const m = route.match(/const READ_ONLY = \[([^\]]*)\]/);
   const live = new Set([...(m?.[1] ?? "").matchAll(/"([a-z_]+)"/g)].map((x) => x[1]).concat("list_accounts"));
   if (route.includes("PROPOSE_TOOL")) live.add("propose_change");
+  // 2026-11-23: the tools people with a write role get (WRITE) and the agents' tools (src/lib/mcp-agent-tools.ts).
+  // answer_card is the card's own button, never offered to the model, so it is not in connector.json.
+  const w = route.match(/const WRITE = \[([^\]]*)\]/);
+  for (const x of (w?.[1] ?? "").matchAll(/"([a-z_]+)"/g)) live.add(x[1]);
+  const agentFile = join(process.argv[appAt + 1], "src/lib/mcp-agent-tools.ts");
+  if (existsSync(agentFile)) {
+    const block = readFileSync(agentFile, "utf8").match(/export const AGENT_TOOLS = \[([\s\S]*?)\] as const;/)?.[1] ?? "";
+    for (const x of block.matchAll(/name: "([a-z_]+)"/g)) live.add(x[1]);
+  }
   for (const t of live) if (!tools[t]) errors.push(`connector.json is missing ${t}, which the app serves`);
   for (const t of Object.keys(tools)) if (!live.has(t)) errors.push(`connector.json lists ${t}, which the app does not serve`);
-  console.log(`app READ_ONLY + list_accounts: ${[...live].sort().join(", ")}`);
+  console.log(`app tools: ${[...live].sort().join(", ")}`);
 }
 
 const folders = readdirSync(join(root, "skills"), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);

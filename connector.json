@@ -1,7 +1,7 @@
 {
   "server": "kunads",
   "endpoint": "https://app.kunads.ai/api/mcp",
-  "writes": "One tool writes: propose_change puts a pause or a daily-budget change into the account's Kunads approval queue. It never changes an ad account; a person approves it in Kunads, which then applies it through its safety rails.",
+  "writes": "Nothing writes to an ad account. Write tools (for people whose Kunads role allows it) prepare work in Kunads or queue a change for approval: propose_change (pause a campaign or set its daily budget), propose_month_budget, stop_autopilot, plus drafts (draft_concepts, edit_report), the brief (save_brief) and account rules (add_rule). Each queued change comes back as a card: a person answers it in the chat (Meta pauses and cuts, lowering the month's budget) or approves it in Kunads, which applies it through its safety rails. The card's own button (answer_card) is not callable by the model.",
   "common_inputs": {
     "account": "The account's id or name, as list_accounts shows it. Required by every tool except list_accounts.",
     "from": "Start date YYYY-MM-DD. Only used when `to` is also given; otherwise the last 30 days.",
@@ -124,6 +124,107 @@
         "why"
       ],
       "summary": "Queue one change for approval: pause a running campaign, or set its daily budget in euros. platform: meta | google_ads. action: pause | set_budget. why: the reason with its numbers, shown to the approver. Nothing changes until a person presses Approve in Kunads.",
+      "writes": true
+    },
+    "query_data": {
+      "inputs": [
+        "account",
+        "from",
+        "to",
+        "sql"
+      ],
+      "summary": "Answer ANY question about this account's numbers with one SQL query (SQLite) over a private copy of this account's data only — the shop's orders and order lines (products), campaigns and ads by day on Meta and Google, GA4 traffic by channel, and Google search terms, for the last ~400 days."
+    },
+    "shop_by_day": {
+      "inputs": [
+        "account",
+        "from",
+        "to",
+        "from",
+        "to",
+        "split",
+        "only"
+      ],
+      "summary": "The shop's own orders day by day (business days in Vilnius time): orders, net sales and average order value (AOV), paid orders only."
+    },
+    "profit_goal": {
+      "inputs": [
+        "account"
+      ],
+      "summary": "The client's profit goal (euros a month on top of a baseline, by a date), this month's pace, the normal month-to-month swing, and the levers in sight with their euro size and how each is measured."
+    },
+    "save_brief": {
+      "inputs": [
+        "account",
+        "sells",
+        "audience",
+        "positioning",
+        "price_band",
+        "competitors",
+        "notes"
+      ],
+      "summary": "Write what you concluded about the business, so every agent and every future conversation has it. Writes to Kunads only, never to an ad account.",
+      "writes": true
+    },
+    "add_rule": {
+      "inputs": [
+        "account",
+        "agent",
+        "title",
+        "text",
+        "remove"
+      ],
+      "summary": "Save a rule the person wants the agents to follow on THIS account from now on — e.g. Writes to Kunads only, never to an ad account.",
+      "writes": true
+    },
+    "draft_concepts": {
+      "inputs": [
+        "account",
+        "concepts"
+      ],
+      "summary": "Put new creative concepts into the Creative lab as DRAFTS, where a person swipes each one: right approves the words, left discards it. Writes to Kunads only, never to an ad account.",
+      "writes": true
+    },
+    "edit_report": {
+      "inputs": [
+        "account",
+        "report_id",
+        "title",
+        "intro",
+        "blocks",
+        "period"
+      ],
+      "summary": "Change a report: its title, its opening line, the blocks it contains, or the period it covers. Writes to Kunads only, never to an ad account.",
+      "writes": true
+    },
+    "whats_waiting": {
+      "inputs": [
+        "account"
+      ],
+      "summary": "What the Kunads agents found and did on this account: proposals waiting for a person (with their reasons and the euros at stake), changes that reached the ads in the last 24 hours (approved by a person, or made by a rule or autopilot on 'Do it'), and whether any autopilot is on."
+    },
+    "show_card": {
+      "inputs": [
+        "account",
+        "proposal_id"
+      ],
+      "summary": "Show one waiting proposal as a card the person can answer in this chat."
+    },
+    "propose_month_budget": {
+      "inputs": [
+        "account",
+        "amount",
+        "month",
+        "why"
+      ],
+      "summary": "Propose this account's ad budget for a month, in the account's currency, when the person states one.",
+      "writes": true
+    },
+    "stop_autopilot": {
+      "inputs": [
+        "account"
+      ],
+      "summary": "Stop every autopilot on this account at once: each rule on 'Do it' and the goal autopilot go back to 'Ask me', so from now on every change waits for a person.",
       "writes": true
     }
   }

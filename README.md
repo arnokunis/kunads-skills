@@ -8,12 +8,18 @@ connector, which answers from figures Kunads has already measured: spend,
 what the platforms claim, what the shop actually recorded, margins,
 breakeven and the agents' own proposals.
 
-The connector reads, and it can queue a change for approval: pause a
-campaign or set its daily budget. Nothing changes in Google Ads or Meta
-from your assistant. A person presses Approve in Kunads, and Kunads then
+The connector reads, and for people whose Kunads role allows it, it can
+prepare work and queue changes for approval: pause a campaign, set its
+daily budget or the month's budget, stop every autopilot, draft creative
+concepts and reports. It can also tell you what the agents found
+overnight. Nothing changes in Google Ads or Meta from your assistant.
+Each queued change comes back as a card. In Claude and ChatGPT you answer
+it on the card itself when it lowers spend (a Meta pause or budget cut, a
+lower month's budget); anything else you approve in Kunads. Kunads then
 applies it through its safety rails (brand protection, at most a 20%
 budget step, the month's cap, fresh data), with a receipt and an undo.
-The skills that queue changes ask you first in the chat.
+The model can never press the card's button. A client seat only reads its
+own account. The skills that queue changes ask you first in the chat.
 
 ## Claude Code: install the plugin
 
